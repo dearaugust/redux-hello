@@ -3,15 +3,15 @@ import React, { Component } from 'react'
 import PostBody from './PostBody.js'
 import CommentBox from './CommentBox.js'
 
-const Post = () => (
+const Post = ({ match }) => (
   <div>
     <div className='top clearfix'>
       {/* <PostBody comments={this.state.comments}/> */}
-      <PostBody />
+      <PostBody id={match.params.id}/>
     </div>
     <div className='buttom clearfix'>
       {/* <CommentBox comments={this.state.comments} addComment={this.addComment}/> */}
-      <CommentBox />
+      <CommentBox id={match.params.id}/>
     </div>
   </div>
 )

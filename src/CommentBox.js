@@ -12,7 +12,7 @@ class CommentBox extends Component {
   handleSubmit(e){
     e.preventDefault();
     const value =this.textInput.value
-    store.dispatch({type:'ADD_COMMENT', comment:value})
+    store.dispatch({type:'ADD_COMMENT', comment:value, postId: this.props.id })
     this.refs.commentForm.reset()  //输入后清空
     // this.props.addComment(content)
   }
@@ -20,7 +20,7 @@ class CommentBox extends Component {
     console.log(this.props);
     // console.log(store.getState());
     // let comments = store.getState()
-    let commentList = this.props.comments.map( (item, index) => (
+    let commentList = this.props.comments[this.props.id].map( (item) => (
       <div className="comment" key={Math.random()} style={{borderBottom:'1px solid #ccc'}}>{item}</div>
     ))
     return(

@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import store from './redux/store.js'
+import { Link } from 'react-router-dom'
 
 import { connect } from 'react-redux'
 
@@ -9,18 +10,20 @@ class PostBody extends Component {
     this.handleClick = this.handleClick.bind(this)
   }
   handleClick(){
-    store.dispatch({type:'ADD_LIKE'}) //给赋予属性
+    store.dispatch({type:'ADD_LIKE', postId: this.props.id}) //给赋予属性
   }
   render(){
     console.log(this.props);
     return(
       <div className='post-body'>
-        <h1 className="title">Holle Word</h1>
+        <Link to={`/post/${this.props.id}`} className="title">
+          {this.props.posts[this.props.id].title}
+        </Link>
         <div className="likes-num num" onClick={this.handleClick}>
-          {this.props.likes} 赞
+          {this.props.posts[this.props.id].likes} 赞
         </div>
         <div className="comment-num num">
-          {this.props.comments.length} 评论
+          {this.props.comments[this.props.id].length} 评论
           {/* <span>{this.state.num}</span> */}
         </div>
       </div>
@@ -30,7 +33,7 @@ class PostBody extends Component {
 const mapStateToProps = (state) => (
   {
     comments: state.comments,
-    likes: state.likes
+    posts: state.posts
   }
 )
 

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {BrowserRouter, Route, Link} from 'react-router-dom'
+import {BrowserRouter as Router, Route, Link, Switch} from 'react-router-dom'
 
 import './main.css'
 import { Provider } from 'react-redux'
@@ -8,19 +8,14 @@ import store from './redux/store.js'
 import Home from './Home.js'
 import Post from './Post.js'
 
+const NoMatch = () => (
+  <h1 style={{textAlign:'center'}}>404</h1>
+)
+const Header = () => (
+  <Link className="back-home" to="/">Home</Link>
+)
+
 class App extends Component {
-  // constructor() {
-  //   super()
-  //   this.addComment = this.addComment.bind(this)
-  // }
-  // state = {
-  //   comments: ['hello', 'word']
-  // }
-  // addComment(newComment) {
-  //  this.setState({
-  //    comments: [...this.state.comments, newComment] //保存之前改动,新增
-  //  })
-  // }
   render() {
     return (
       <Provider store={store}>
@@ -29,13 +24,16 @@ class App extends Component {
           {/* <PostBody comments={this.state.comments}/> */}
           {/* <PostBody /> */}
         {/* </div> */}
-        <BrowserRouter>
+        <Router>
           <div>
-            <Route exact path='/' component={Home}/>
-            <Route path='/Post/:id' component={Post}/>
+            <Header />
+            <Switch>
+              <Route exact path='/' component={Home} />
+              <Route path='/post/:id' component={Post} />
+              <Route component={NoMatch} />
+            </Switch>
           </div>
-        </BrowserRouter>
-
+        </Router>
         {/* <div className='buttom clearfix'> */}
           {/* <CommentBox comments={this.state.comments} addComment={this.addComment}/> */}
           {/* <CommentBox /> */}

@@ -5,25 +5,35 @@ import { combineReducers } from 'redux'
 //   likes: 0
 // }
 
-let comments = ['hello', 'word']
+let comments = {
+   1: ['hello', 'word'],
+   2: ['word', 'hello']
+}
 function commentReducer( state = comments,action ){
   switch (action.type) {
     case 'ADD_COMMENT':
-      return [ ...state, action.comment ]
+      return { ...state, [action.postId]:[...state[action.postId], action.comment] }
     default:
       return state
   }
 }
 
-let likes = 0
-function likeReducer( state = likes,action ){
+const posts = {
+  1: { title:'redux-hello', likes: 8},
+  2: { title:'hello-word',likes: 1}
+}
+function postReducer( state = posts,action ){
   switch (action.type) {
     case 'ADD_LIKE':
-      return state + 1
+      let id = action.postId
+      return {
+        ...state,[id]:{...state[id], likes: state[id].likes + 1}
+      }
     default:
       return state
   }
 }
+
 
 // 写一起
 // function rootReducer(state = newState, action) {
@@ -45,7 +55,7 @@ function likeReducer( state = likes,action ){
 
 const rootReducer = combineReducers({
   comments: commentReducer,
-  likes: likeReducer
+  posts: postReducer,
 })
 
 export default rootReducer
