@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
-import store from './redux/store.js'
-
 import { connect } from 'react-redux'
+import { addComment } from './redux/actions/commentActions.js'
 
 class CommentBox extends Component {
   constructor(){
@@ -12,7 +11,8 @@ class CommentBox extends Component {
   handleSubmit(e){
     e.preventDefault();
     const value =this.textInput.value
-    store.dispatch({type:'ADD_COMMENT', comment:value, postId: this.props.id })
+    // store.dispatch({type:'ADD_COMMENT', comment:value, postId: this.props.id })
+    this.props.addComment()   // redux-thunk 传过来的
     this.refs.commentForm.reset()  //输入后清空
     // this.props.addComment(content)
   }
@@ -42,4 +42,4 @@ const mapStateToProps = (state) => (
   }
 )
 
-export default connect(mapStateToProps)(CommentBox)
+export default connect(mapStateToProps, {addComment})(CommentBox)

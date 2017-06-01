@@ -13,6 +13,8 @@ function commentReducer( state = comments,action ){
   switch (action.type) {
     case 'ADD_COMMENT':
       return { ...state, [action.postId]:[...state[action.postId], action.comment] }
+      // console.log( 'ADD_COMMENT', action);
+      // return state
     default:
       return state
   }
