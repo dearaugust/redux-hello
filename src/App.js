@@ -8,6 +8,11 @@ import store from './redux/store.js'
 import Home from './Home.js'
 import Post from './Post.js'
 
+import axios from 'axios'
+
+axios.get('http://redux-hello.haoduoshipin.com/comments')
+  .then(res => console.log(res))
+
 const NoMatch = () => (
   <h1 style={{textAlign:'center'}}>404</h1>
 )

@@ -1,13 +1,12 @@
 import { combineReducers } from 'redux'
-
 // let newState = {
 //   comments: ['hello', 'word'],
 //   likes: 0
 // }
 
 let comments = {
-   1: ['hello', 'word'],
-   2: ['word', 'hello']
+   1: [],
+   2: []
 }
 function commentReducer( state = comments,action ){
   switch (action.type) {
@@ -15,6 +14,8 @@ function commentReducer( state = comments,action ){
       return { ...state, [action.postId]:[...state[action.postId], action.comment] }
       // console.log( 'ADD_COMMENT', action);
       // return state
+    case 'LOAD_COMMENTS':
+      return action.comments
     default:
       return state
   }
